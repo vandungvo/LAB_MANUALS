@@ -15,6 +15,7 @@ with open("labels.txt", "r", encoding="utf-8") as file:
 """ Windows
 camera = cv2.VideoCapture(0)
 """
+
 ip_address = "192.168.175.55"
 port = 4747
 
