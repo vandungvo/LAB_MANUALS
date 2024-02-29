@@ -12,15 +12,16 @@ model = load_model("keras_model.h5", compile=False)
 with open("labels.txt", "r", encoding="utf-8") as file:
     class_names = file.readlines()
 
-""" Windows
+# Windows
 camera = cv2.VideoCapture(0)
-"""
 
+""" Linux
 ip_address = "192.168.175.55"
 port = 4747
 
 # Create a VideoCapture object
 camera = cv2.VideoCapture(f"http://{ip_address}:{port}/video")
+"""
 
 def image_detector():
     # Grab the webcamera's image.

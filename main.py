@@ -3,10 +3,11 @@ from Adafruit_IO import MQTTClient
 import time
 import random
 from simple_ai import *
+from uart import *
 
 AIO_FEED_IDs = ["nutnhan1", "nutnhan2"]
 AIO_USERNAME = "vovandung"
-AIO_KEY = "aio_kSyk56VECZNkLyXaJNC9JYOeypx6"
+AIO_KEY = "aio_Aogv43Hdl4KdPO6rDlH7EmH2Ntfd"
 
 def connected(client):
     print("Ket noi thanh cong ...")
@@ -37,6 +38,7 @@ ai_result = ""
 previous_result = ""
 
 while True:
+    """ Send random data to adafruit
     counter = counter - 1
     if counter <= 0:
         counter = 10
@@ -57,6 +59,7 @@ while True:
             light = random.randint(100, 500)
             client.publish("cambien3", light)
             sensor_type = 0
+    """
             
     counter_ai = counter_ai - 1
     if counter_ai <= 0:
@@ -67,4 +70,5 @@ while True:
         if previous_result != ai_result:
             client.publish("ai", ai_result)
 
+    readSerial(client)
     time.sleep(1)
