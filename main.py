@@ -2,12 +2,12 @@ import sys
 from Adafruit_IO import MQTTClient
 import time
 import random
-from simple_ai import *
+# from simple_ai import *
 from uart import *
 
 AIO_FEED_IDs = ["nutnhan1", "nutnhan2"]
 AIO_USERNAME = "vovandung"
-AIO_KEY = "aio_atVJ10zNU9cRSZtq1fa8eprj4NcQ"
+AIO_KEY = "aio_koLB86LDvN7AIgY9VRbrEU551Ik5"
 
 def connected(client):
     print("Ket noi thanh cong ...")
@@ -23,6 +23,16 @@ def disconnected(client):
 
 def message(client , feed_id , payload):
     print("Nhan du lieu: " + payload + " , feed id:" + feed_id)
+    if feed_id == "nutnhan1":
+        if payload == "0":
+            writeData("Turn off light!")
+        else:
+            writeData("Turn on light!")
+    if feed_id == "nutnhan2":
+        if payload == "0":
+            writeData("Turn off pump!")
+        else:
+            writeData("Turn on pump!")
 
 client = MQTTClient(AIO_USERNAME , AIO_KEY)
 client.on_connect = connected
@@ -60,7 +70,8 @@ while True:
             client.publish("cambien3", light)
             sensor_type = 0
     """
-            
+
+    """AI model     
     counter_ai = counter_ai - 1
     if counter_ai <= 0:
         counter_ai = 5
@@ -69,6 +80,7 @@ while True:
         print("AI Output: ", ai_result)
         if previous_result != ai_result:
             client.publish("ai", ai_result)
+    """
 
     readSerial(client)
     time.sleep(1)
